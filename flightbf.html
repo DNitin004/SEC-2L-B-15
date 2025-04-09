@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Ticket Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f2f2f2;
+            color: #333;
+        }
+        header {
+            background: #1e88e5;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .flight-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 15px;
+            text-align: center;
+        }
+        .seats {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            padding: 15px 0;
+        }
+        .seat {
+            width: 35px;
+            height: 35px;
+            background: #4caf50;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .seat.selected {
+            background: #f44336;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background: #1e88e5;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #1565c0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Flight Ticket Booking</h1>
+</header>
+<div class="container">
+    <div class="flight-card">
+        <h2>Flight: AI-203</h2>
+        <p>Departure: 6:00 AM</p>
+        <p>Arrival: 9:00 AM</p>
+        <div class="seats" id="seats1"></div>
+        <button onclick="bookSeats('seats1')">Book</button>
+    </div>
+
+    <div class="flight-card">
+        <h2>Flight: EK-512</h2>
+        <p>Departure: 1:00 PM</p>
+        <p>Arrival: 4:00 PM</p>
+        <div class="seats" id="seats2"></div>
+        <button onclick="bookSeats('seats2')">Book</button>
+    </div>
+</div>
+
+<script>
+    function createSeats(id) {
+        const container = document.getElementById(id);
+        for (let i = 0; i < 30; i++) {
+            const seat = document.createElement('div');
+            seat.classList.add('seat');
+            seat.onclick = () => seat.classList.toggle('selected');
+            container.appendChild(seat);
+        }
+    }
+
+    function bookSeats(id) {
+        const seats = document.querySelectorAll(`#${id} .seat.selected`);
+        if (seats.length > 0) {
+            alert(`${seats.length} seats booked successfully!`);
+            seats.forEach(seat => seat.classList.remove('selected'));
+        } else {
+            alert('Please select at least one seat.');
+        }
+    }
+
+    window.onload = () => {
+        createSeats('seats1');
+        createSeats('seats2');
+    };
+</script>
+
+</body>
+</html>
